@@ -1,0 +1,2 @@
+GivenName,Surname,DisplayName,samAccountName,upn,Path,Title,Instance,Password,Group,DataBase
+Given,Sur, Given Sur,Given.Sur,Given.Sur@company.com,"OU=Users,OU=Location,OU=SubCom,DC=Company,DC=com","The Title",InstanceObject,password,"MailGroup1;MailGroup2;ACLGroup1;ACLGroup2","Mailbox DataBase"
