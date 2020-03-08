@@ -1,0 +1,2 @@
+GivenName,Surname,DisplayName,samAccountName,upn,Path,Title,Instance,Password,Group,DataBase,cardNo,telephonenumber
+Given,Sur,Given Sur,Given.Sur,Given.Sur@company.com,"OU=Users,OU=Reginal,OU=SubCompany,DC=Company,DC=com",Title,Instance.User,password,,Mailbox Database A,1234567,1234
