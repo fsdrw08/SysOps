@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  samba:
+    image: dperson/samba
+    environment:
+      TZ: Asia/Shanghai
+    networks:
+      - default
+    ports:
+      - "137:137/udp"
+      - "138:138/udp"
+      - "139:139/tcp"
+      - "445:445/tcp"
+    read_only: true
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    volumes:
+      - /mnt:/mnt:z
+    command: '-s "DeploymentShare;/mnt/DeploymentShare;yes;yes;yes;;admin;admin;" -u "admin;admin" -p'
