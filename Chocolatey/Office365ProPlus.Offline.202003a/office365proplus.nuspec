@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>office365proplus</id>
+    <version>202003a</version>
+    <title>Office 365 ProPlus</title>
+    <authors>Microsoft</authors>
+    <owners>Windom</owners>
+    <licenseUrl>https://technet.microsoft.com/en-us/library/gg982959.aspx</licenseUrl>
+    <projectUrl>http://office.microsoft.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>## Package parameters
+* `/ConfigPath` - (must) Full path to custom install configuration.
+Example: `choco install office365proplus --params '/ConfigPath:c:\myConfig.xml`
+
+* `/Language` - (optional) The installation language. Defaults to match your OS language. [List of possible languages](https://docs.microsoft.com/en-us/deployoffice/overview-of-deploying-languages-in-office-365-proplus#languages-culture-codes-and-companion-proofing-languages)
+Example: `choco install office365proplus --params '/Language:de-de'`
+
+* `/InstallerFolder` - (must) Full path to O365 setup.exe.
+Example: `choco install office365proplus --params '/ConfigPath:c:\myConfig.xml /InstallerFolder:c:\o365installer\setup.exe`
+
+Get the latest versions of your familiar Office programs, such as Word, Excel and PowerPoint, and more, all in one convenient
+subscription. This will download and silently install the entire Office 365 2016 Professional Plus edition. A license is required
+and you will be prompted to enter your account information upon first launching the software after install.</description>
+    <summary>Office 365 ProPlus</summary>
+    <releaseNotes>https://docs.microsoft.com/en-us/officeupdates/update-history-office365-proplus-by-date</releaseNotes>
+    <copyright>© Microsoft 2019</copyright>
+    <tags>Office365ProPlus Office MSOffice MicrosoftOffice</tags>
+    <packageSourceUrl>https://github.com/mikecole/chocolatey-packages</packageSourceUrl>
+    <docsUrl>https://support.office.com/</docsUrl>
+    <mailingListUrl>https://go.microsoft.com/fwlink/?LinkId=400427</mailingListUrl>
+    <bugTrackerUrl>https://support.office.com/en-us/home/chat?ContactUsExperienceEntryPointAssetId=S.HP.Main</bugTrackerUrl>
+  </metadata>
+</package>

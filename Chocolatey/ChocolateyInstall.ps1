@@ -2,7 +2,9 @@
 # This is where you see the top level API - with xml to Packages - should look nearly the same as https://chocolatey.org/api/v2/
 # If you are using Nexus, always add the trailing slash or it won't work
 # === EDIT HERE ===
-$packageRepo = 'http://internal/odata/repo'
+#$packageRepo = 'http://internal/odata/repo'
+$packageRepo = 'D:\Install\'
+$chocolateynupkg = 'chocolatey.0.10.15.nupkg'
 
 # If the above $packageRepo repository requires authentication, add the username and password here. Otherwise these leave these as empty strings.
 $repoUsername = ''    # this must be empty is NOT using authentication
@@ -33,11 +35,12 @@ Set-ExecutionPolicy Bypass -Scope Process -Force;
 
 # If the repository requires authentication, create the Credential object
 if ((-not [string]::IsNullOrEmpty($repoUsername)) -and (-not [string]::IsNullOrEmpty($repoPassword))) {
-$securePassword = ConvertTo-SecureString $repoPassword -AsPlainText -Force
-$repoCreds = New-Object System.Management.Automation.PSCredential ($repoUsername, $securePassword)
+  $securePassword = ConvertTo-SecureString $repoPassword -AsPlainText -Force
+  $repoCreds = New-Object System.Management.Automation.PSCredential ($repoUsername, $securePassword)
 }
 
-$searchUrl = ($packageRepo.Trim('/'), 'Packages()?$filter=(Id%20eq%20%27chocolatey%27)%20and%20IsLatestVersion') -join '/'
+#$searchUrl = ($packageRepo.Trim('/'), 'Packages()?$filter=(Id%20eq%20%27chocolatey%27)%20and%20IsLatestVersion') -join '/'
+$searchUrl = Join-Path -Path $packageRepo -ChildPath $chocolateynupkg
 
 # Reroute TEMP to a local location
 New-Item $env:ALLUSERSPROFILE\choco-cache -ItemType Directory -Force
@@ -59,22 +62,22 @@ function Fix-PowerShellOutputRedirectionBug {
 $poshMajorVerion = $PSVersionTable.PSVersion.Major
 
 if ($poshMajorVerion -lt 4) {
-try{
-# http://www.leeholmes.com/blog/2008/07/30/workaround-the-os-handles-position-is-not-what-filestream-expected/ plus comments
-$bindingFlags = [Reflection.BindingFlags] "Instance,NonPublic,GetField"
-$objectRef = $host.GetType().GetField("externalHostRef", $bindingFlags).GetValue($host)
-$bindingFlags = [Reflection.BindingFlags] "Instance,NonPublic,GetProperty"
-$consoleHost = $objectRef.GetType().GetProperty("Value", $bindingFlags).GetValue($objectRef, @())
-[void] $consoleHost.GetType().GetProperty("IsStandardOutputRedirected", $bindingFlags).GetValue($consoleHost, @())
-$bindingFlags = [Reflection.BindingFlags] "Instance,NonPublic,GetField"
-$field = $consoleHost.GetType().GetField("standardOutputWriter", $bindingFlags)
-$field.SetValue($consoleHost, [Console]::Out)
-[void] $consoleHost.GetType().GetProperty("IsStandardErrorRedirected", $bindingFlags).GetValue($consoleHost, @())
-$field2 = $consoleHost.GetType().GetField("standardErrorWriter", $bindingFlags)
-$field2.SetValue($consoleHost, [Console]::Error)
-} catch {
-Write-Output 'Unable to apply redirection fix.'
-}
+  try{
+    # http://www.leeholmes.com/blog/2008/07/30/workaround-the-os-handles-position-is-not-what-filestream-expected/ plus comments
+    $bindingFlags = [Reflection.BindingFlags] "Instance,NonPublic,GetField"
+    $objectRef = $host.GetType().GetField("externalHostRef", $bindingFlags).GetValue($host)
+    $bindingFlags = [Reflection.BindingFlags] "Instance,NonPublic,GetProperty"
+    $consoleHost = $objectRef.GetType().GetProperty("Value", $bindingFlags).GetValue($objectRef, @())
+    [void] $consoleHost.GetType().GetProperty("IsStandardOutputRedirected", $bindingFlags).GetValue($consoleHost, @())
+    $bindingFlags = [Reflection.BindingFlags] "Instance,NonPublic,GetField"
+    $field = $consoleHost.GetType().GetField("standardOutputWriter", $bindingFlags)
+    $field.SetValue($consoleHost, [Console]::Out)
+    [void] $consoleHost.GetType().GetProperty("IsStandardErrorRedirected", $bindingFlags).GetValue($consoleHost, @())
+    $field2 = $consoleHost.GetType().GetField("standardErrorWriter", $bindingFlags)
+    $field2.SetValue($consoleHost, [Console]::Error)
+  } catch {
+    Write-Output 'Unable to apply redirection fix.'
+  }
 }
 }
 
@@ -89,9 +92,9 @@ try {
 # Use integers because the enumeration values for TLS 1.2 and TLS 1.1 won't
 # exist in .NET 4.0, even though they are addressable if .NET 4.5+ is
 # installed (.NET 4.5 is an in-place upgrade).
-[System.Net.ServicePointManager]::SecurityProtocol = 3072 -bor 768 -bor 192
+  [System.Net.ServicePointManager]::SecurityProtocol = 3072 -bor 768 -bor 192
 } catch {
-Write-Output 'Unable to set PowerShell to use TLS 1.2 and TLS 1.1 due to old .NET Framework installed. If you see underlying connection closed or trust errors, you may need to upgrade to .NET Framework 4.5+ and PowerShell v3+.'
+  Write-Output 'Unable to set PowerShell to use TLS 1.2 and TLS 1.1 due to old .NET Framework installed. If you see underlying connection closed or trust errors, you may need to upgrade to .NET Framework 4.5+ and PowerShell v3+.'
 }
 
 function Get-Downloader {
@@ -111,38 +114,38 @@ $downloader.Credentials = $defaultCreds
 
 $ignoreProxy = $env:chocolateyIgnoreProxy
 if ($ignoreProxy -ne $null -and $ignoreProxy -eq 'true') {
-Write-Debug 'Explicitly bypassing proxy due to user environment variable.'
-$downloader.Proxy = [System.Net.GlobalProxySelection]::GetEmptyWebProxy()
+  Write-Debug 'Explicitly bypassing proxy due to user environment variable.'
+  $downloader.Proxy = [System.Net.GlobalProxySelection]::GetEmptyWebProxy()
 } else {
 # check if a proxy is required
-$explicitProxy = $env:chocolateyProxyLocation
-$explicitProxyUser = $env:chocolateyProxyUser
-$explicitProxyPassword = $env:chocolateyProxyPassword
+  $explicitProxy = $env:chocolateyProxyLocation
+  $explicitProxyUser = $env:chocolateyProxyUser
+  $explicitProxyPassword = $env:chocolateyProxyPassword
 if ($explicitProxy -ne $null -and $explicitProxy -ne '') {
 # explicit proxy
-$proxy = New-Object System.Net.WebProxy($explicitProxy, $true)
-if ($explicitProxyPassword -ne $null -and $explicitProxyPassword -ne '') {
-$passwd = ConvertTo-SecureString $explicitProxyPassword -AsPlainText -Force
-$proxy.Credentials = New-Object System.Management.Automation.PSCredential ($explicitProxyUser, $passwd)
-}
+  $proxy = New-Object System.Net.WebProxy($explicitProxy, $true)
+  if ($explicitProxyPassword -ne $null -and $explicitProxyPassword -ne '') {
+    $passwd = ConvertTo-SecureString $explicitProxyPassword -AsPlainText -Force
+    $proxy.Credentials = New-Object System.Management.Automation.PSCredential ($explicitProxyUser, $passwd)
+  }
 
-Write-Debug "Using explicit proxy server '$explicitProxy'."
-$downloader.Proxy = $proxy
+  Write-Debug "Using explicit proxy server '$explicitProxy'."
+  $downloader.Proxy = $proxy
 
 } elseif (!$downloader.Proxy.IsBypassed($url)) {
 # system proxy (pass through)
-$creds = $defaultCreds
-if ($creds -eq $null) {
-Write-Debug 'Default credentials were null. Attempting backup method'
-$cred = get-credential
-$creds = $cred.GetNetworkCredential();
+  $creds = $defaultCreds
+  if ($creds -eq $null) {
+    Write-Debug 'Default credentials were null. Attempting backup method'
+    $cred = get-credential
+    $creds = $cred.GetNetworkCredential();
 }
 
-$proxyaddress = $downloader.Proxy.GetProxy($url).Authority
-Write-Debug "Using system proxy server '$proxyaddress'."
-$proxy = New-Object System.Net.WebProxy($proxyaddress)
-$proxy.Credentials = $creds
-$downloader.Proxy = $proxy
+  $proxyaddress = $downloader.Proxy.GetProxy($url).Authority
+  Write-Debug "Using system proxy server '$proxyaddress'."
+  $proxy = New-Object System.Net.WebProxy($proxyaddress)
+  $proxy.Credentials = $creds
+  $downloader.Proxy = $proxy
 }
 }
 
@@ -275,8 +278,9 @@ function Install-ChocolateyFromPackage {
 if (!(Test-Path $ChocoInstallPath)) {
 # download the package to the local path
     if (!(Test-Path $localChocolateyPackageFilePath)) {
-    #↓need to change below method by move-item for local install path
-        Download-Package $searchUrl $localChocolateyPackageFilePath
+    #↓need to change below method by copy-item for local install path
+        Copy-Item -Path $searchUrl -Destination $localChocolateyPackageFilePath
+        #Download-Package $searchUrl $localChocolateyPackageFilePath
     }
 
     # Install Chocolatey
