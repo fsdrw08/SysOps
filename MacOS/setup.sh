@@ -50,8 +50,8 @@ vi ~/.zshrc
 ## install apps
 ### install apps in app store
 brew install mas
-### mas install onedrive, parallels client, networker lite, dark reader for safari
-mas install 823766827 600925318 1228738830 1438243180
+### mas install onedrive, parallels client, networker lite, dark reader for safari, save to pocket
+mas install 823766827 600925318 1228738830 1438243180 1477385213
 
 ### install others
 brew cask install shadowsocksx-ng-r visual-studio-code 
