@@ -20,7 +20,8 @@ cd "$(brew --repo)"/Library/Taps/homebrew/homebrew-core && git remote set-url or
 git -C "$(brew --repo homebrew/core)" remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git 
 
 ## install homebrew cask
-brew install brew-cask-completion
+#brew install brew-cask-completion
+brew tap homebrew/cask
 
 ### switch homebre-cask.git
 cd "$(brew --repo)"/Library/Taps/homebrew/homebrew-cask && git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git
