@@ -50,8 +50,8 @@ vi ~/.zshrc
 ## install apps
 ### install apps in app store
 brew install mas
-### mas install onedrive and parallels client
-mas install 823766827 600925318
+### mas install onedrive, parallels client, networker lite, dark reader for safari
+mas install 823766827 600925318 1228738830 1438243180
 
 ### install others
 brew cask install shadowsocksx-ng-r visual-studio-code 
@@ -62,6 +62,10 @@ alias proxy='export all_proxy=socks5://127.0.0.1:1086'
 alias unproxy='unset all_proxy'">>~/.zshrc
 ### enable proxy
 proxy
+### verify
+curl ipinfo.io
+### or
+curl cip.cc
 ### install the rest of the apps
 brew cask install bettertouchtool vlc docker virtualbox virtualbox-extension-pack
 ### disable proxy
