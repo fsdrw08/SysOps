@@ -23,10 +23,15 @@ git -C "$(brew --repo homebrew/core)" remote set-url origin https://mirrors.aliy
 #brew install brew-cask-completion
 brew tap homebrew/cask
 
+## install homebrew cask update module
+brew tap buo/cask-upgrade
+brew update
+brew cu
+
 ### switch homebre-cask.git
 cd "$(brew --repo)"/Library/Taps/homebrew/homebrew-cask && git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git
 ### or aliyun
-git -C "$(brew --repo homebrew/cask)" remote set-url origin https://mirrors.aliyun.com/homebrew-cask.git
+### git -C "$(brew --repo homebrew/cask)" remote set-url origin https://mirrors.aliyun.com/homebrew-cask.git
 
 ## switch homebrew-bottles
 echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles' >> ~/.zshrc
