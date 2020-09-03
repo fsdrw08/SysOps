@@ -59,7 +59,7 @@ brew install mas
 mas install 823766827 600925318 1228738830 1438243180 1477385213
 
 ### install others
-brew cask install shadowsocksx-ng-r visual-studio-code 
+brew cask install shadowsocksx-ng-r visual-studio-code docker turbo-boost-switcher vmware-fusion
 ### after set up ssr, set up proxy for cli
 echo "\
 # proxy list
