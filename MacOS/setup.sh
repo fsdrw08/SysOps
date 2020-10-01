@@ -63,7 +63,12 @@ brew cask install shadowsocksx-ng-r visual-studio-code docker turbo-boost-switch
 ### after set up ssr, set up proxy for cli
 echo "\
 # proxy list
-alias proxy='export all_proxy=socks5://127.0.0.1:1086'
+# for ssr
+# alias proxy='export all_proxy=socks5://127.0.0.1:1086'
+# alias unproxy='unset all_proxy'">>~/.zshrc
+
+# for clash
+alias proxy='https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890'
 alias unproxy='unset all_proxy'">>~/.zshrc
 ### enable proxy
 proxy
