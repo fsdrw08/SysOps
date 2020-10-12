@@ -1,5 +1,8 @@
 
 # Git upload
+# 0. Config user:
+git config --global user.name "My Name"
+git config --global user.email "myemail@example.com"
 
 # 1. Initialize: 
 git init
@@ -29,6 +32,8 @@ git push --mirror <address>
 
 # 1. Cancel local change: 
 git stash
+git stash list
+git stash drop stash@{*}
 
 # 2. Download: 
 git pull origin
