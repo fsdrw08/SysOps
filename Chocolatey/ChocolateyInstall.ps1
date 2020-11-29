@@ -3,7 +3,7 @@
 # If you are using Nexus, always add the trailing slash or it won't work
 # === EDIT HERE ===
 #$packageRepo = 'http://internal/odata/repo'
-$packageRepo = 'D:\Install\'
+$packageRepo = $PSScriptRoot
 $chocolateynupkg = 'chocolatey.0.10.15.nupkg'
 
 # If the above $packageRepo repository requires authentication, add the username and password here. Otherwise these leave these as empty strings.
