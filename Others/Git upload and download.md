@@ -17,24 +17,43 @@ git status -s
 git commit -m "<comment>"
 
 # 5. Add origin source: 
-git remote add origin <address> 
+git remote add origin &lt;address&gt;
+
 # add other source 
-git remote add another <address>
+git remote add another &lt;address&gt;
 
 # 6. Upload: 
 git push origin master
 
 # 7. Upload to another repo: 
-git push --mirror <address>
+git push --mirror &lt;address&gt;
+
 
 
 # ·Git download
 
 # 1. Cancel local change: 
 git stash
+
 git stash list
+
 git stash drop stash@{*}
 
 # 2. Download: 
 git pull origin
+
+# 3. Partical download
+git clone --filter=blob:none --no-checkout &lt;repo address&gt;
+
+git sparse-checkout init --cone
+
+git sparse-checkout set &lt;sub folder&gt;
+
+git checkout
+
+# .Git roll back
+git log &lt;file path&gt;
+
+git reset --hard &lt;commit id&gt;
+
 
