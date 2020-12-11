@@ -274,7 +274,8 @@ param (
 if (!(Test-Path $ChocoInstallPath)) {
   # download the package to the local path
   if (!(Test-Path $localChocolateyPackageFilePath)) {
-    Download-Package $searchUrl $localChocolateyPackageFilePath
+    #Download-Package $searchUrl $localChocolateyPackageFilePath
+    Copy-Item -Path (Join-Path -Path $PSScriptRoot -ChildPath 'chocolatey.0.10.15.nupkg') -Destination $localChocolateyPackageFilePath
   }
 
   # Install Chocolatey
