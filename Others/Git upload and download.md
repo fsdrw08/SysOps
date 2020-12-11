@@ -45,6 +45,8 @@ git pull origin
 # 3. Partical download
 git clone --filter=blob:none --no-checkout &lt;repo address&gt;
 
+cd &lt;repo dir&gt;
+
 git sparse-checkout init --cone
 
 git sparse-checkout set &lt;sub folder&gt;
@@ -54,6 +56,6 @@ git checkout
 # .Git roll back
 git log &lt;file path&gt;
 
-git reset --hard &lt;commit id&gt;
+git revert -n &lt;commit id&gt;
 
-
+git commit -m ""
