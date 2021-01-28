@@ -1,0 +1,1 @@
+powershell.exe -executionpolicy Bypass -File %CD%\Restore-Scoop.ps1
