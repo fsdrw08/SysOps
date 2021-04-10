@@ -49,7 +49,7 @@ cd &lt;repo dir&gt;
 
 git sparse-checkout init --cone
 
-git sparse-checkout set &lt;sub folder&gt;
+git sparse-checkout set &lt;sub folder&gt; // &lt; - no forward slash in the begin and the end of the sub folder path
 
 git checkout
 
