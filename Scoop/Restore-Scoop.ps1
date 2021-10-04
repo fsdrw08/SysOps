@@ -25,6 +25,8 @@ if ($condition) {
   "reset scoop"
   . $env:USERPROFILE\scoop\shims\scoop reset *
 
+  "modify powershell execution policy"
+  Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 } else {
   "Check your backup file and 7z.exe"
 }
