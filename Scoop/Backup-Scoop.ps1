@@ -39,6 +39,12 @@ if ((Read-Host "Are you sure all scoop apps had closed? y/N") -eq "y") {
     . (Join-Path $Destination "7z.exe") a $Destination\Scoop.7z $env:USERPROFILE\scoop\
     
     "add the current folder back"
+    Get-ChildItem "$env:USERPROFILE\scoop\apps\" | Select-Object -ExpandProperty fullname | ForEach-Object {
+        if ((Get-ChildItem $_ | Select-Object -ExpandProperty name) -notcontains "current") {
+            $Target = Get-ChildItem $_ | Select-Object -First 1 | Select-Object -ExpandProperty fullname
+            New-Item -ItemType Junction -Path "$_\current" -Target $Target
+        }
+    }
     scoop reset *
 
     "Backup done, please enter to close the window"
