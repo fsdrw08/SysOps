@@ -23,6 +23,12 @@ if ($condition) {
   }
   
   "reset scoop"
+  Get-ChildItem "$env:USERPROFILE\scoop\apps\" | Select-Object -ExpandProperty fullname | ForEach-Object {
+        if ((Get-ChildItem $_ | Select-Object -ExpandProperty name) -notcontains "current") {
+            $Target = Get-ChildItem $_ | Select-Object -First 1 | Select-Object -ExpandProperty fullname
+            New-Item -ItemType Junction -Path "$_\current" -Target $Target
+        }
+  }
   . $env:USERPROFILE\scoop\shims\scoop reset *
 
   "modify powershell execution policy"
