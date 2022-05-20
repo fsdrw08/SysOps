@@ -23,7 +23,7 @@ Windom
 
 ---
 ![bg vertical right fit](container_evolution.svg)
-![bg vertical right fit](cgroups_namespaces.jpg)
+![bg vertical 70% right fit](cgroups_namespaces.jpg)
 - Kubernetes 是什么？
   - [Kubernetes 又名 K8s，是容器管理和编排的平台](https://kubernetes.io/zh/docs/concepts/overview/what-is-kubernetes/)
   ![w:100px](QR_what_is_kubernetes.png)
@@ -40,14 +40,14 @@ Windom
 
 
 ---
-![bg vertical right fit](Lxc-vm.png)
+![bg vertical 80% right fit](Lxc-vm.png)
 - 容器？虚拟机？
   - 容器：共享内核，无虚拟化层，更低的开销
   - 虚拟机：独立内核，有虚拟化层，更广泛的用途
   - Ref: [Understanding Docker](https://www.containerlabs.kubedaily.com/Docker/Overview/Understanding_Docker.html)  
   ![w:100px](QR_Understanding_Docker.png)
   <br>
-![bg right fit](docker_process.png)
+![bg right 70% fit](docker_process.png)
 - docker 如何工作？
   - docker → dockerd → containerd → runC → unshare syscall
   - Ref: [Docker是怎样运行的 - 对namespace的介绍](https://www.bilibili.com/video/BV1JZ4y1m7Pv)
@@ -61,7 +61,7 @@ section ul li {
 }
 </style>
 ![bg vertical right fit](ns_cgroup.png)
-![bg vertical right fit](Image的本地存储结构.webp)
+![bg vertical right 80% fit](Image的本地存储结构.webp)
 - 容器技术的底层技术（如何实现）？
   - Linux内核提供namespace完成隔离 <- 容器能用什么资源
   - Cgroup完成资源限制 <- 容器能用多少资源
@@ -99,8 +99,8 @@ section ul li {
     font-size: 18px;
 }
 </style>
-![bg vertical right contain](control_plane_manager_graph.jpg)
-![bg vertical right contain](containerd_docker.jpg)
+![bg vertical right 80% contain](control_plane_manager_graph.jpg)
+![bg vertical right 60% contain](containerd_docker.jpg)
 - 说人话
 1. Kubectl -> API server -> etcd: 把<对象>做成<想要的状态>
 2. Kubectl <- API server <- etcd: 收到
@@ -116,7 +116,7 @@ section ul li {
 12. <节点>kubelet -> API server -> etcd: <对象><当前状态>，做成<想要的状态>，要做<动作>，到<节点>做，<结果(搞完了/搞砸了)>
   
 ---
-![bg vertical right contain](yaml.png)
+![bg vertical right 60% contain](yaml.png)
 - k8s常用资源描述方式
 
   - 对象规约（Spec）与状态（Status）
@@ -135,33 +135,28 @@ section ul li {
   - cluster类：集群类对象，包括：Node、namespace、persitenceVolume、serviceAccount、clusterRole、ClusterRoleVindeing、ResoruceQuota
   - CRD类：第三方开发的类
 ---
+<!-- _class: invert -->
+<style scoped>
+  section {
+    font-size: 19px;
+}
+</style>
+![bg vertical right 80% fit](k8s_distributions.png)
+![bg 65% fit](k8s_local-cluster.webp)
+## 常见的K8S发行版(可本地部署)
+| 发行版 | 组织 | 备注 |
+|:-:|:-:|:-:|
+| k8s | google | 原版 |
+| openshift | Red Hat | 商业版 |
+| okd | Red Hat | openshift社区版 |
+| rke2 | SUSE Rancher | 免费使用，提供付费服务 |
+| Tanzu | VMWARE | 商业版 |
+| TCE | VMWARE | Tanzu社区版 |
+| kubesphere | 青云 | 免费使用 |
+| k3s | SUSE Rancher | 免费使用，轻量级 |
+| microk8s | Canonical | 免费使用，轻量级 |
+| k0s | Mirantis | 免费使用，轻量级 |
 
-### `$width` / `$height`
-
-Changes width and height of all the slides.
-
-You can use units: `px` (default), `cm`, `mm`, `in`, `pt`, and `pc`.
-
-```html
-<!-- $width: 12in -->
-```
-
-### `$size`
-
-Changes slide size by presets.
-
-Presets: `4:3`, `16:9`, `A0`-`A8`, `B0`-`B8` and suffix of `-portrait`.
-
-```html
-<!-- $size: 16:9 -->
-```
-
-<!--
-$size: a4
-
-Example is here. Global Directive is enabled in anywhere.
-It apply the latest value if you write multiple same Global Directives.
--->
 
 ---
 
