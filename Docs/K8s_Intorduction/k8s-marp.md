@@ -22,36 +22,32 @@ Windom
 ![bg right width:300](k8s.png)
 
 ---
-![bg vertical right fit](container_evolution.svg)
-![bg vertical 70% right fit](cgroups_namespaces.jpg)
 - Kubernetes 是什么？
   - [Kubernetes 又名 K8s，是容器管理和编排的平台](https://kubernetes.io/zh/docs/concepts/overview/what-is-kubernetes/)
   ![w:100px](QR_what_is_kubernetes.png)
-<br>
+![bg vertical right fit](container_evolution.svg)
 
 - 容器是什么？
   - 容器是一组与系统其余部分隔离的一个或多个进程。  
   - [什么是 Linux 容器？](https://www.redhat.com/zh/topics/containers/whats-a-linux-container) 
   ![width:100px](what_is_container.png)
-<br>
+![bg vertical 70% right fit](cgroups_namespaces.jpg)
 
 - 为何要使用容器？
   两个字 - 灵活
-
-
 ---
-![bg vertical 80% right fit](Lxc-vm.png)
 - 容器？虚拟机？
   - 容器：共享内核，无虚拟化层，更低的开销
   - 虚拟机：独立内核，有虚拟化层，更广泛的用途
   - Ref: [Understanding Docker](https://www.containerlabs.kubedaily.com/Docker/Overview/Understanding_Docker.html)  
   ![w:100px](QR_Understanding_Docker.png)
-  <br>
-![bg right 70% fit](docker_process.png)
+![bg vertical 80% right fit](Lxc-vm.png)
+<br>
 - docker 如何工作？
   - docker → dockerd → containerd → runC → unshare syscall
   - Ref: [Docker是怎样运行的 - 对namespace的介绍](https://www.bilibili.com/video/BV1JZ4y1m7Pv)
   - ![width:100px](QR_How_Docker_Works-Intro_to_Namespaces.png)
+![bg right 70% fit](docker_process.png)
 
 
 ---
@@ -60,8 +56,6 @@ section ul li {
     font-size: 20px;
 }
 </style>
-![bg vertical right fit](ns_cgroup.png)
-![bg vertical right 80% fit](Image的本地存储结构.webp)
 - 容器技术的底层技术（如何实现）？
   - Linux内核提供namespace完成隔离 <- 容器能用什么资源
   - Cgroup完成资源限制 <- 容器能用多少资源
@@ -73,6 +67,9 @@ section ul li {
     - [Docker学习：Image的本地存储结构](https://segmentfault.com/a/1190000017579626)
       ![w:100px](QR_Image的本地存储结构.png)
 
+![bg vertical right fit](ns_cgroup.png)
+![bg vertical right 80% fit](Image的本地存储结构.webp)
+
 ---
 - Why K8s?
   ![](Docker-Kubernetes-together.png)
@@ -83,7 +80,6 @@ section ul li {
     font-size: 19px;
 }
 </style>
-![bg vertical right fit](k8s-arch.png)
 - Q: K8s 有哪些部件？
   - etcd: 基于Raft一致性协议的key/value分布式存储，存储k8s的数据和状  态信息。
   - Controller Manager: 内置了多种控制器（DeploymentController、  ServiceController、NodeController等），集群内部的管理控制中心，负责维护集群的状态，比如故障检测、自动扩展、滚动更新等。
@@ -93,17 +89,17 @@ section ul li {
   - Kube-proxy: Node节点上的服务网络代理，通过apiserver取到 Service、Endpoint等对象信息，根据配置的方式完成服务的反向代理及负载  均衡。
   - Container Runtime: 底层的容器实现方案，可能是dockerd、containerd, runc等。
 
+![bg vertical right fit](k8s-arch.png)
+
 ---
 <style scoped>
   section {
     font-size: 18px;
 }
 </style>
-![bg vertical right 80% contain](control_plane_manager_graph.jpg)
-![bg vertical right 60% contain](containerd_docker.jpg)
 - 说人话
-1. Kubectl -> API server -> etcd: 把<对象>做成<想要的状态>
-2. Kubectl <- API server <- etcd: 收到
+1. Kubectl (user) -> API server -> etcd: 把<对象>做成<想要的状态>
+2. Kubectl (user) <- API server <- etcd: 收到
 3. controller manager (每隔几秒) -> API server -> etcd: 啥情况
 4. controller manager <- API server <- etcd: <对象><当前状态>，做成<想要的状态>
 5. controller manager -> API server -> etcd: <对象><当前状态>，做成<想要的状态>，要做<动作>
@@ -114,9 +110,11 @@ section ul li {
 10. <节点>kubelet <- API server <- etcd: <对象><当前状态>，做成<想要的状态>，要做<动作>，到<节点>做
 11. <节点>kubelet -> <节点>CRI/Docker: 开搞
 12. <节点>kubelet -> API server -> etcd: <对象><当前状态>，做成<想要的状态>，要做<动作>，到<节点>做，<结果(搞完了/搞砸了)>
+
+![bg vertical right 80% contain](control_plane_manager_graph.jpg)
+![bg vertical right 60% contain](containerd_docker.jpg)
   
 ---
-![bg vertical right 60% contain](yaml.png)
 - k8s常用资源描述方式
 
   - 对象规约（Spec）与状态（Status）
@@ -124,9 +122,9 @@ section ul li {
   - spec是必需的，它描述了对象的 期望状态（Desired State） —— 希望对象所具有的特征。 
   - status描述了对象的 实际状态（Actual State） ，它是由 Kubernetes 系统提供和更新的。在任何时刻，Kubernetes 控制面一直努力地管理着对象的实际状态以与期望状态相匹配。
 
+![bg vertical right 60% contain](yaml.png)
+
 ---
-![bg right:55% contain](workload_svc.png)
-![bg right 80% contain](cm_clst.png)
 - K8s常用对象
   - 常用的对象分类有以下几种：
   - workload类：工作负载类，包括：pod、deployment、statefulset、daemonset、job
@@ -134,6 +132,10 @@ section ul li {
   - config&storage类：应用初始化配置相关，包括：configmap、secret、persistentVolumeClaim
   - cluster类：集群类对象，包括：Node、namespace、persitenceVolume、serviceAccount、clusterRole、ClusterRoleVindeing、ResoruceQuota
   - CRD类：第三方开发的类
+
+![bg right:55% contain](workload_svc.png)
+![bg right 80% contain](cm_clst.png)
+
 ---
 <!-- _class: invert -->
 <style scoped>
@@ -141,8 +143,6 @@ section ul li {
     font-size: 19px;
 }
 </style>
-![bg vertical right 80% fit](k8s_distributions.png)
-![bg 65% fit](k8s_local-cluster.webp)
 ## 常见的K8S发行版(可本地部署)
 | 发行版 | 组织 | 备注 |
 |:-:|:-:|:-:|
@@ -157,45 +157,26 @@ section ul li {
 | microk8s | Canonical | 免费使用，轻量级 |
 | k0s | Mirantis | 免费使用，轻量级 |
 
+![bg vertical right 80% fit](k8s_distributions.png)
+![bg 65% fit](k8s_local-cluster.webp)
 
 ---
-
-## Page Directives
-
-The page directive would apply to the  **current page and the following pages**.
-You should insert it *at the top* to apply it to all slides.
-
-### `page_number`
-
-Set `true` to show page number on slides. *See lower right!*
-
-```html
-<!-- page_number: true -->
-```
-
-<!--
-page_number: true
-
-Example is here. Pagination starts from this page.
-If you use multi-line comment, directives should write to each new lines.
--->
+## 常见K3s/K8s集群架构
+- 高可用集群
+  硬件要求
+  - 内存：最低16G，建议32G
+  ![bg vertical right:60% 80%](k3s_high_available_architecture.png)
+<br>
+- 单管理平面节点集群
+  硬件要求
+  - 内存：建议16G
+  ![bg fit 70%](k3s_single_node.png)
 
 ---
+## 本案
 
-### `template`
-
-Set to use template of theme.
-
-The `template` directive just enables that using theme supports templates.
-
-```html
-<!--
-$theme: gaia
-template: invert
--->
-
-Example: Set "invert" template of Gaia theme.
-```
+<!-- ![bg right:70% 60% fit](sololab_arch.png) -->
+![bg right:80% 65%](sololab_arch.drawio.png)
 
 ---
 
