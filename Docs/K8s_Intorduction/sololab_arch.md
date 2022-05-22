@@ -24,9 +24,9 @@ classDiagram
 
     Gateway_VM : 软路由
     Gateway_VM : 作为内网DHCP服务器
-    Gateway_VM : 以及K3s L4负载均衡
+    Gateway_VM : 以及K3s_L4负载均衡
     Gateway_VM: (VyOS)
-    Gateway_VM: (RAM 1G或2G)
+    Gateway_VM: (RAM1G或2G)
 
     Internal_Switch : 内网虚拟交换机
 
