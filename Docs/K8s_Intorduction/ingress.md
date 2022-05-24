@@ -1,7 +1,42 @@
+
+
+```mermaid
+graph LR
+    DNS(DNS<br/>solo.lab -> VIP)
+    LB(LoadBalancer<BR/>VIP->Host_IP)
+    Traefik_Svc(Traefik_Svc<br/>ingressSvc<br/>type: loadBalancer)
+    Traefik_Pod(Traefik_Pod<br/>ingressPod<br/>Ingress Controller)
+    App1_Ing(App1_Ing)
+    App1_Svc(App1_Svc)
+    App2_Ing(App2_Ing)
+    App2_Svc(App2_Svc)
+    
+    DNS--step1-->LB--step2-->Traefik_Svc--step3-->Traefik_Pod
+    Traefik_Pod--step4: refer-->Traefik_dashboard_Ing-->Traefik_dashboard_Svc
+    Traefik_Pod--step5-->Traefik_dashboard_Svc
+    Traefik_dashboard_Svc--step6-->Traefik_Pod
+    Traefik_Pod--refer-->App1_Ing
+    App1_Ing-->App1_Svc
+    Traefik_Pod-->App1_Svc
+    App1_Svc-->App1_App
+    Traefik_Pod--refer-->App2_Ing
+    App2_Ing-->App2_Svc
+    Traefik_Pod-->App2_Svc
+    App2_Svc-->App2_App
+```
+
 ```mermaid
 classDiagram
     DNS --> LoadBalancer : step 1
-    LoadBalancer --> "Host" Traefik_Svc : step 2
+
+    DNS : solo.lab -> VIP
+    LoadBalancer : VIP->Host_IP
+```
+
+```mermaid
+classDiagram
+    %%DNS --> LoadBalancer : step 1
+    %%LoadBalancer --> "Host" Traefik_Svc : step 2
     Traefik_Svc --> Traefik_Pod : step 3
     Traefik_Pod <--> Traefik_dashboard_Ing : refer(step4)
     Traefik_Pod <--> App1_Ing : refer
@@ -16,8 +51,8 @@ classDiagram
     App2_Ing --> App2_Svc
     App2_Svc --> App2_Pod
 
-    DNS : solo.lab -> VIP
-    LoadBalancer : VIP->Host_IP
+    %%DNS : solo.lab -> VIP
+    %%LoadBalancer : VIP->Host_IP
     Traefik_Svc : ingressSvc 
     Traefik_Svc:type(loadBalancer)
     Traefik_Pod : ingressPod

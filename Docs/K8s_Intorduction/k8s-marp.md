@@ -1,14 +1,13 @@
 ---
-marp: true
+marp: false
 theme: default
 style: |
   section {
-    background-color: #333;
     font-size: 22px
   }
 size: 16:9
 paginate: true
-color: #ccc
+# color: #ccc
 ---
 
 Kubernetes
@@ -18,20 +17,32 @@ Kubernetes
 ### 主讲人
 Windom
 <br>
-
 ![bg right width:300](k8s.png)
 
 ---
-- Kubernetes 是什么？
+## 目录:
+- [Kubernetes 是什么？](#Kubernetes-是什么)
+- 容器是什么？
+  - 容器 vs 虚拟机
+  - 容器的底层技术
+- K8s简介
+  - K8s有哪些部件
+  - K8s的工作方式
+  - K8s常用资源对象
+
+---
+## Kubernetes 是什么
   - [Kubernetes 又名 K8s，是容器管理和编排的平台](https://kubernetes.io/zh/docs/concepts/overview/what-is-kubernetes/)
   ![w:100px](QR_what_is_kubernetes.png)
 ![bg vertical right fit](container_evolution.svg)
+
+---
 
 - 容器是什么？
   - 容器是一组与系统其余部分隔离的一个或多个进程。  
   - [什么是 Linux 容器？](https://www.redhat.com/zh/topics/containers/whats-a-linux-container) 
   ![width:100px](what_is_container.png)
-![bg vertical 70% right fit](cgroups_namespaces.jpg)
+![bg vertical right fit](cgroups_namespaces.jpg)
 
 - 为何要使用容器？
   两个字 - 灵活
@@ -185,4 +196,11 @@ section ul li {
 ---
 
 ## Ingress 原理
+<!-- ![bg 40%](ingress.drawio.png) -->
+![bg right:80% 100%](ingressLR.svg)
+
+---
+
+## Ingress 原理
 ![bg 40%](ingress.drawio.png)
+<!-- ![bg right:80% 100%](ingressLR.svg) -->
