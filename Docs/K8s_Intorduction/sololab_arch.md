@@ -1,6 +1,6 @@
 ```mermaid
 classDiagram
-    internet <-- Physical_NIC
+    %%internet <-- Physical_NIC
     Physical_NIC <-- Windows_Host
     Physical_NIC <-- Default_Switch
     Default_Switch <-- "eth0" Gateway_VM
@@ -13,7 +13,7 @@ classDiagram
     Internal_Switch <-- VM3
     Internal_Switch <-- VMs
 
-    internet : 外网
+    %%internet : 外网
     Physical_NIC : 物理网卡
 
     Default_Switch : Hyper-V 自带虚拟交换机
