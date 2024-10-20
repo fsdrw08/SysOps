@@ -31,7 +31,8 @@ if ((Read-Host "Are you sure all scoop apps had closed? y/N") -eq "y") {
     "Remove the `"current`" folder in scoop apps"
     Get-Item $env:USERPROFILE\scoop\apps\*\current | ForEach-Object {
       if ($_.mode -eq "d-r--l") {
-      Remove-Item $_.FullName -Recurse -Force -Confirm:$false
+        # https://serverfault.com/questions/199921/force-remove-files-and-directories-in-powershell-fails-sometimes-but-not-always
+        cmd.exe /c rd /s /q $_.FullName
       }
     }
     
